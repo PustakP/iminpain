@@ -14,10 +14,10 @@
 
 ## Code explanation
 
-- `src/imgmask.tsx`: This is the main component that contains the image inpainting widget. It uses the `react-canvas-draw` library to draw on the image.
-- `src/App.tsx`: This is the main entry point of the application. It renders the `ImageInpaintingWidget` component.
+- `src/imgmask.jsx`: This is the main component that contains the image inpainting widget. It uses the `react-canvas-draw` library to draw on the image.
+- `src/App.jsx`: This is the main entry point of the application. It renders the `ImageInpaintingWidget` component.
 - `src/index.css`: This is the CSS file for the application.
-- `src/main.tsx`: This is the entry point of the application. It renders the `App` component.
+- `src/main.jsx`: This is the entry point of the application. It renders the `App` component.
 
 ## Deployment
 
