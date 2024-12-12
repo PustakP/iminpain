@@ -1,50 +1,27 @@
-# React + TypeScript + Vite
+# Image Inpainting Widget Demo for Internship
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## How to run
 
-Currently, two official plugins are available:
+1. Clone the repository
+2. Run `npm install --legacy-peer-deps` (because of the react-canvas-draw library)
+3. Run `npm run dev`
+4. Open the browser and go to `http://localhost:5173/`
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## How to use
 
-## Expanding the ESLint configuration
+1. Click on the "Click or drag and drop" button to upload an image
+2. Draw on the image to create a mask
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Code explanation
 
-- Configure the top-level `parserOptions` property like this:
+- `src/imgmask.tsx`: This is the main component that contains the image inpainting widget. It uses the `react-canvas-draw` library to draw on the image.
+- `src/App.tsx`: This is the main entry point of the application. It renders the `ImageInpaintingWidget` component.
+- `src/index.css`: This is the CSS file for the application.
+- `src/main.tsx`: This is the entry point of the application. It renders the `App` component.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## Deployment
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### Visit the website
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- Visit the website at [https://imagepipelinesubmission.vercel.app/](https://imagepipelinesubmission.vercel.app/)
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
