@@ -1,21 +1,23 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import { Upload } from 'lucide-react';
 
-const ImageInpaintingWidget = () => {
-  const [originalImage, setOriginalImage] = useState(null);
-  const [exportedImages, setExportedImages] = useState(null);
-  const [brushRadius, setBrushRadius] = useState(10);
-  const [imageSize, setImageSize] = useState({ width: 500, height: 400 });
-  const canvasRef = useRef(null);
-  const hiddenCanvasRef = useRef(null);
-  const originalCanvasRef = useRef(null);
+interface ImageInpaintingWidgetProps {}
 
-  const handleImageUpload = (event) => {
+const ImageInpaintingWidget: React.FC<ImageInpaintingWidgetProps> = () => {
+  const [originalImage, setOriginalImage] = useState<string | null>(null);
+  const [exportedImages, setExportedImages] = useState<{ original: string, mask: string } | null>(null);
+  const [brushRadius, setBrushRadius] = useState<number>(10);
+  const [imageSize, setImageSize] = useState<{ width: number, height: number }>({ width: 500, height: 400 });
+  const canvasRef = useRef<any>(null);
+  const hiddenCanvasRef = useRef<HTMLCanvasElement>(null);
+  const originalCanvasRef = useRef<HTMLCanvasElement>(null);
+
+  const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e) => {
+      reader.onload = (e: ProgressEvent<FileReader>) => {
         const img = new Image();
         img.onload = () => {
           // Maintain aspect ratio while fitting within 500x400
@@ -30,10 +32,10 @@ const ImageInpaintingWidget = () => {
           }
 
           setImageSize({ width: newWidth, height: newHeight });
-          setOriginalImage(String(e.target.result));
+          setOriginalImage(e.target?.result as string || '');
           setExportedImages(null);
         };
-        img.src = String(e.target.result);
+        img.src = e.target?.result as string || '';
       };
       reader.readAsDataURL(file);
     }
@@ -83,7 +85,7 @@ const ImageInpaintingWidget = () => {
             mask: maskDataUrl 
           });
         };
-        originalImg.src = originalImage;
+        originalImg.src = originalImage!;
       }
     }
   };

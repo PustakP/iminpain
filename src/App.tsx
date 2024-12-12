@@ -1,5 +1,5 @@
 import './App.css'
-import ImageInpaintingWidget from './imgmask'
+import ImageInpaintingWidget from './imgmask.tsx'
 
 function App() {
 
