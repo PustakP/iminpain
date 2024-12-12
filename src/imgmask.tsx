@@ -97,6 +97,44 @@ const ImageInpaintingWidget: React.FC<ImageInpaintingWidgetProps> = () => {
     }
   };
 
+  // add drag n drop handlers
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const file = e.dataTransfer.files?.[0];
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+      // reuse existing file reading logic
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const img = new Image();
+        img.onload = () => {
+          // calc aspect ratio same as before
+          const aspectRatio = img.width / img.height;
+          let newWidth = 500;
+          let newHeight = 400;
+
+          if (img.width > img.height) {
+            newHeight = newWidth / aspectRatio;
+          } else {
+            newWidth = newHeight * aspectRatio;
+          }
+
+          setImageSize({ width: newWidth, height: newHeight });
+          setOriginalImage(e.target?.result as string || '');
+          setExportedImages(null);
+        };
+        img.src = e.target?.result as string || '';
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="max-w-4xl mx-auto p-4 bg-gray-100 rounded-lg flex flex-col items-center">
       <h1 className="text-2xl font-bold mb-4 text-center">Image Inpainting Widget</h1>
@@ -108,6 +146,8 @@ const ImageInpaintingWidget: React.FC<ImageInpaintingWidgetProps> = () => {
                        border-2 border-dashed border-blue-400 rounded-lg 
                        bg-blue-50 hover:bg-blue-100 cursor-pointer 
                        transition-colors duration-200"
+            onDragOver={handleDragOver}
+            onDrop={handleDrop}
           >
             <input 
               type="file" 
