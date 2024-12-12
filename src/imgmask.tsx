@@ -1,4 +1,4 @@
-import React, { useState, useRef, ChangeEvent, useEffect } from 'react';
+import React, { useState, useRef, ChangeEvent } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import { Upload } from 'lucide-react';
 
